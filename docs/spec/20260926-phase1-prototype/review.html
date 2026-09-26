@@ -1,0 +1,134 @@
+<title>イメージイングリッシュ フェーズ1仕様</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F8; --paper:#FFFFFF; --ink:#1B2230; --sub:#5A6475; --line:#D9DEE6;
+  --accent:#0E6B78; --accent-soft:#E0F0F2; --warn:#A5561B; --warn-soft:#FBEEE3;
+  --ok:#2F7A45;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11161D; --paper:#18202A; --ink:#E6EAF0; --sub:#9AA5B5; --line:#2A3441;
+    --accent:#5CC3CF; --accent-soft:#16333A; --warn:#E6A36B; --warn-soft:#3A2819; --ok:#7CCB92;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11161D; --paper:#18202A; --ink:#E6EAF0; --sub:#9AA5B5; --line:#2A3441;
+  --accent:#5CC3CF; --accent-soft:#16333A; --warn:#E6A36B; --warn-soft:#3A2819; --ok:#7CCB92;
+}
+body{background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;font-size:15px;line-height:1.75}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:6px}
+.status{align-self:flex-start;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;padding:2px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+h1{font-size:26px;line-height:1.35;margin:0;text-wrap:balance}
+h2{font-size:18px;margin:0 0 10px;text-wrap:balance}
+.lead{color:var(--sub);margin:0;max-width:62ch}
+section{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:560px){.cols{grid-template-columns:1fr}}
+.cols h3{font-size:14px;margin:0 0 6px;letter-spacing:.04em}
+ul{margin:0;padding-left:1.2em}
+li+li{margin-top:4px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0;padding:0;list-style:none}
+.flow li{margin:0;background:var(--accent-soft);color:var(--ink);padding:6px 12px;border-radius:6px;font-size:14px}
+.flow .arrow{background:none;color:var(--sub);padding:0}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--sub);font-weight:500;letter-spacing:.04em}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.btn{display:inline-block;font-size:12px;padding:1px 8px;border-radius:4px;border:1px solid var(--line);white-space:nowrap}
+.timeline{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.timeline span{font-family:"IBM Plex Mono",monospace;font-size:13px;padding:4px 10px;border:1px solid var(--accent);color:var(--accent);border-radius:4px}
+.note{font-size:13px;color:var(--sub);margin:10px 0 0}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}
+dt{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--accent);white-space:nowrap}
+dd{margin:0}
+.decisions{display:flex;flex-direction:column;gap:12px}
+.decisions div{display:grid;grid-template-columns:48px 1fr;gap:10px}
+.decisions b{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-weight:500}
+code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--accent-soft);padding:0 4px;border-radius:3px}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="status">凍結済み 2026-09-26</span>
+    <h1>イメージイングリッシュ フェーズ1(試作)仕様</h1>
+    <p class="lead">サンプル20語で「学習画面・読み上げ・復習」を作り、iPhone で使い心地を確かめる段階の仕様です。Round 1・2 の回答をもとにまとめています。</p>
+  </header>
+
+  <section>
+    <h2>作るもの/作らないもの</h2>
+    <div class="cols">
+      <div>
+        <h3>フェーズ1で作る</h3>
+        <ul>
+          <li>簡易ホーム(今日の復習数・新しい単語数・「始める」)</li>
+          <li>学習画面(新しい単語/思い出す)</li>
+          <li>読み上げ(英語の声、最初はボタンから)</li>
+          <li>復習の記録と出題(iPhone 本体に保存)</li>
+          <li>サンプル20語(A1)と Pixabay 画像</li>
+          <li>20語分の画像取得スクリプト</li>
+        </ul>
+      </div>
+      <div>
+        <h3>後のフェーズへ</h3>
+        <ul>
+          <li>ホーム画面に追加・オフライン(フェーズ2)</li>
+          <li>CEFR-J 取り込み・大量データ・画像チェック画面(フェーズ3〜4)</li>
+          <li>設定画面・書き出し/読み込み・連続日数・統計(フェーズ5)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>1日の流れ</h2>
+    <ul class="flow">
+      <li>復習(期日が来た単語・上限100)</li><li class="arrow">→</li>
+      <li>新しい単語 10語を見て・聞いて・言う</li><li class="arrow">→</li>
+      <li>その10語を画像だけで思い出す</li>
+    </ul>
+    <p class="note">1日の区切りは午前4時。開発中だけ「日付を1日進める」ボタンで復習の動きを確かめます。</p>
+  </section>
+
+  <section>
+    <h2>復習の間隔(Anki方式)</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>ボタン</th><th>初めての単語</th><th>復習中の単語</th><th>覚えやすさ(ease)</th></tr></thead>
+        <tbody>
+          <tr><td><span class="btn">言えなかった</span></td><td>3枚後にもう一度 → 言えたら1日後</td><td>3枚後にもう一度、間隔は1日に戻す</td><td class="mono">−0.20</td></tr>
+          <tr><td><span class="btn">迷った</span></td><td class="mono">1日後</td><td class="mono">間隔 × 1.2</td><td class="mono">−0.15</td></tr>
+          <tr><td><span class="btn">言えた</span></td><td class="mono">1日後</td><td class="mono">間隔 × ease</td><td class="mono">±0</td></tr>
+          <tr><td><span class="btn">楽勝</span></td><td class="mono">4日後</td><td class="mono">間隔 × ease × 1.3</td><td class="mono">+0.15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">ease の初期値は 2.5、下限は 1.3。毎回「言えた」を押した場合の出題日:</p>
+    <div class="timeline"><span>1日後</span><span>3日後</span><span>8日後</span><span>20日後</span><span>50日後</span></div>
+  </section>
+
+  <section>
+    <h2>決まったこと</h2>
+    <div class="decisions">
+      <div><b>D1</b><span>Pixabay APIキーをフェーズ1で取得し、<code>.env</code> に置く(先に <code>.gitignore</code> へ追加)。20語分を取得するスクリプトを作り、フェーズ3で拡張して使う。</span></div>
+      <div><b>D2</b><span>画面は学習画面と簡易ホーム。設定はフェーズ1では固定値(新語10・復習上限100・自動読み上げオン・速度ふつう)。</span></div>
+      <div><b>D4</b><span>サンプルは画像にしやすい語14+しにくい語6。単語リストは実装時に提案し、承認をもらってから例文を作る。</span></div>
+      <div><b>D5</b><span>例文の単語は変化形でもよい(eat → <i>ate</i>)。例文中の形を <code>target_form</code> に記録し、強調と穴埋めに使う。</span></div>
+      <div><b>D7</b><span>画像がイマイチなら単語名を伝えるだけ。Claude Code が検索語を変えて取り直す。</span></div>
+      <div><b>D8</b><span>CLAUDE.md の仕様書パスの崩れ(<code>docs/[SPEC.md](…)</code>)を直す。</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>確認のしかた</h2>
+    <dl>
+      <dt>iPhone</dt><dd>パソコンと同じ Wi-Fi につなぎ、Safari で開発サーバーのアドレスを開く(手順は実装後に1つずつ案内)</dd>
+      <dt>保存</dt><dd>学習記録は iPhone 本体(IndexedDB)。カード ID は <code>単語-品詞</code>(例 <code>run-verb</code>)</dd>
+      <dt>制限</dt><dd>この確認方法(http)ではホーム画面への追加・オフラインは試せない。フェーズ2の公開後に確認</dd>
+    </dl>
+  </section>
+</div>

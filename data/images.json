@@ -1,0 +1,622 @@
+{
+  "always-adverb": {
+    "image_query": "woman drinking coffee at office desk",
+    "usedQuery": "woman drinking coffee at office desk",
+    "candidates": [
+      {
+        "pixabayId": 1851464,
+        "pageURL": "https://pixabay.com/photos/woman-laptop-desk-workspace-1851464/",
+        "user": "Pexels",
+        "tags": "woman, laptop, desk, workspace, coffee cup, macbook, technology, work, working, working woman, coffee, computer, cup, girl, mug"
+      },
+      {
+        "pixabayId": 2583442,
+        "pageURL": "https://pixabay.com/photos/girl-woman-office-work-coffee-2583442/",
+        "user": "StockSnap",
+        "tags": "girl, woman, office, work, coffee, laptop, computer, business, busy, windows, office, office, office, office, office, work, business"
+      },
+      {
+        "pixabayId": 6966047,
+        "pageURL": "https://pixabay.com/photos/mug-laptop-camera-drink-beverage-6966047/",
+        "user": "Engin_Akyurt",
+        "tags": "mug, laptop, camera, drink, beverage, coffee, tea, computer, work, coffee cup, photography, technology"
+      }
+    ],
+    "picked": 1,
+    "image": "always-adverb.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/woman-laptop-desk-workspace-1851464/",
+      "user": "Pexels"
+    },
+    "bytes": 22480
+  },
+  "and-conjunction": {
+    "image_query": "hamburger and coffee on table",
+    "usedQuery": "hamburger and coffee on table",
+    "candidates": [
+      {
+        "pixabayId": 2179028,
+        "pageURL": "https://pixabay.com/photos/coffee-cup-caffeine-drink-latte-2179028/",
+        "user": "Pexels",
+        "tags": "coffee, cup, caffeine, drink, latte, latte art, coffee cup, morning coffee, coffee break, hot coffee, beverage, hot, mug, rustic, saucer, table, wooden table, coffee, coffee, coffee, coffee, coffee, table, table"
+      },
+      {
+        "pixabayId": 2714970,
+        "pageURL": "https://pixabay.com/photos/coffee-coffee-cup-cup-drink-beans-2714970/",
+        "user": "cocoparisienne",
+        "tags": "coffee, coffee cup, cup, drink, beans, coffee beans, wooden table, still life, cafe, aroma, coffee break, black coffee, brewed coffee, hot coffee, caffeine, morning coffee, coffee, coffee, coffee, coffee, coffee"
+      },
+      {
+        "pixabayId": 819362,
+        "pageURL": "https://pixabay.com/photos/coffee-cup-mug-coffee-cup-819362/",
+        "user": "fancycrave1",
+        "tags": "coffee, cup, mug, coffee cup, coffee mug, caffeine, hot coffee, coffee break, morning coffee, cafe, drink, beverage, hot, coffee, coffee, coffee, coffee, coffee"
+      }
+    ],
+    "picked": 1,
+    "image": "and-conjunction.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/coffee-cup-caffeine-drink-latte-2179028/",
+      "user": "Pexels"
+    },
+    "bytes": 18226
+  },
+  "apple-noun": {
+    "image_query": "hand holding red apple close up",
+    "usedQuery": "hand holding red apple close up",
+    "candidates": [
+      {
+        "pixabayId": 2391,
+        "pageURL": "https://pixabay.com/photos/apple-diet-female-food-fresh-2391/",
+        "user": "PublicDomainPictures",
+        "tags": "apple, diet, female, food, fresh, fruit, girl, hand, healthy, holding, palm, red, ripe, woman, red apple, ripe apple, fresh apple, apple, apple, apple, apple, apple, diet"
+      },
+      {
+        "pixabayId": 1702316,
+        "pageURL": "https://pixabay.com/photos/apple-red-fruit-red-chief-1702316/",
+        "user": "NoName_13",
+        "tags": "apple, red, fruit, red chief, red apple, fresh apple, ripe, ripe apple, fresh, fresh fruit, harvest, produce, organic, healthy, food, close up, apple, apple, apple, apple, apple"
+      },
+      {
+        "pixabayId": 2579147,
+        "pageURL": "https://pixabay.com/photos/touch-holding-hands-affection-2579147/",
+        "user": "bingngu93",
+        "tags": "touch, holding hands, affection, caring, care, love, parent, parenting, happy mothers day, family, child, mom, mum"
+      }
+    ],
+    "picked": 1,
+    "image": "apple-noun.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/apple-diet-female-food-fresh-2391/",
+      "user": "PublicDomainPictures"
+    },
+    "bytes": 8734
+  },
+  "because-conjunction": {
+    "image_query": "tired man yawning at desk",
+    "usedQuery": "tired man yawning at desk",
+    "candidates": [
+      {
+        "pixabayId": 7116367,
+        "pageURL": "https://pixabay.com/photos/man-adult-young-break-corporate-7116367/",
+        "user": "daha3131053",
+        "tags": "man, adult, young, break, corporate, asleep, business, analyst, workplace, person, businessman, work, job, broker, trader, profession, professional, remote, browsing, e-business, laptop, wi-fi, mobile, technology, office, break, business, job, job, job, job, job, office"
+      },
+      {
+        "pixabayId": 4542301,
+        "pageURL": "https://pixabay.com/photos/cat-yawns-yawning-sleepy-to-yawn-4542301/",
+        "user": "andriish22",
+        "tags": "cat, yawns, yawning, sleepy, animal, to yawn, pet, i love it"
+      },
+      {
+        "pixabayId": 5522892,
+        "pageURL": "https://pixabay.com/photos/man-guy-tired-lazy-morning-5522892/",
+        "user": "Sammy-Sander",
+        "tags": "man, guy, tired, lazy, morning, waking up, work, funny, face, yawning, yawn, sleepy, sleeping, energy, bed, monday, hangover, insomnia, ignorant, alarm, bored, tired, tired, tired, lazy, lazy, yawning, yawn, yawn, sleepy, sleepy, insomnia, insomnia, insomnia, insomnia, insomnia, bored"
+      }
+    ],
+    "picked": 1,
+    "image": "because-conjunction.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/man-adult-young-break-corporate-7116367/",
+      "user": "daha3131053"
+    },
+    "bytes": 16774
+  },
+  "big-adjective": {
+    "image_query": "large dog and small cat",
+    "usedQuery": "large dog and small cat",
+    "candidates": [
+      {
+        "pixabayId": 1047521,
+        "pageURL": "https://pixabay.com/photos/puppy-dog-pet-cute-brown-dog-1047521/",
+        "user": "vlaaitje",
+        "tags": "puppy, dog, nature, pet, cute, brown dog, purebred, dog breed, portrait, dog portrait, mammal, animal, domestic, domestic dog, canine"
+      },
+      {
+        "pixabayId": 1123016,
+        "pageURL": "https://pixabay.com/photos/maltese-dog-puppy-small-dog-1123016/",
+        "user": "Pezibear",
+        "tags": "maltese, dog, puppy, small dog, white dog, young, pet, nature, animal, young dog, domestic dog, canine, mammal, cute, adorable, meadow, outdoors, portrait, animal portrait"
+      },
+      {
+        "pixabayId": 2606759,
+        "pageURL": "https://pixabay.com/photos/dog-cat-pets-mammals-animals-2606759/",
+        "user": "StockSnap",
+        "tags": "dog, cat, pets, mammals, animals, nature, friends, friendship, brown dog, black cat, domestic, domestic animals, portrait, animal, pet, friendship day"
+      }
+    ],
+    "picked": 3,
+    "image": "big-adjective.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/dog-cat-pets-mammals-animals-2606759/",
+      "user": "StockSnap"
+    },
+    "bytes": 27216
+  },
+  "book-noun": {
+    "image_query": "person reading book on sofa",
+    "usedQuery": "person reading book on sofa",
+    "candidates": [
+      {
+        "pixabayId": 1308663,
+        "pageURL": "https://pixabay.com/photos/prayer-bible-christian-folded-hands-1308663/",
+        "user": "reenablack",
+        "tags": "prayer, bible, christian, folded hands, religion, god, book, faith, christianity, religious, holy, praying, spiritual, reading, person, believe, hope, hand, prayer, prayer, prayer, prayer, prayer, bible, bible, bible, christian, god, faith"
+      },
+      {
+        "pixabayId": 1853907,
+        "pageURL": "https://pixabay.com/photos/bed-book-man-person-reading-room-1853907/",
+        "user": "Pexels",
+        "tags": "bed, book, man, person, reading, room, study, student, studying, read, reading man, knowledge, reading, study, study, study, student, student, student, student, student, studying"
+      },
+      {
+        "pixabayId": 1866951,
+        "pageURL": "https://pixabay.com/photos/blonde-girl-book-reading-sit-1866951/",
+        "user": "Pexels",
+        "tags": "blonde, girl, book, reading, sit, sitting, young woman, nature, reading a book, reading girl, grass, outdoors, woman"
+      }
+    ],
+    "picked": 1,
+    "image": "book-noun.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/prayer-bible-christian-folded-hands-1308663/",
+      "user": "reenablack"
+    },
+    "bytes": 7974
+  },
+  "car-noun": {
+    "image_query": "car wash soap foam",
+    "usedQuery": "car wash soap foam",
+    "candidates": [
+      {
+        "pixabayId": 2179231,
+        "pageURL": "https://pixabay.com/photos/car-wash-clean-wash-automobile-2179231/",
+        "user": "paulbr75",
+        "tags": "car wash, clean, wash, automobile, business, car, vehicle, auto, water, carwash, transport, soap, service, nature, car wallpapers, sponge, transportation, spray, job, shine, symbol, washing, window, cleaning, wax, shower, industry, machine, work, foam, drops, gray business, gray car, gray work, gray window, gray job, gray company, gray soap, gray clean, gray service, gray industry, gray shower"
+      },
+      {
+        "pixabayId": 1397382,
+        "pageURL": "https://pixabay.com/photos/washing-car-cleaning-car-car-1397382/",
+        "user": "VintageBlue",
+        "tags": "washing car, cleaning car, car, car wash, cleaning, wash, clean, washing, automobile, dirty, car wallpapers, auto, sponge, wet, soap, sud, gray car, gray soap, gray clean"
+      },
+      {
+        "pixabayId": 7131964,
+        "pageURL": "https://pixabay.com/photos/audi-audi-q4-car-wash-vehicle-7131964/",
+        "user": "AudiZentrumHalle",
+        "tags": "audi, audi q4, car wallpapers, car wash, vehicle, automobile, car"
+      }
+    ],
+    "picked": 1,
+    "image": "car-noun.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/car-wash-clean-wash-automobile-2179231/",
+      "user": "paulbr75"
+    },
+    "bytes": 36228
+  },
+  "cook-verb": {
+    "image_query": "mother cooking dinner in kitchen",
+    "usedQuery": "mother cooking dinner in kitchen",
+    "candidates": [
+      {
+        "pixabayId": 6639970,
+        "pageURL": "https://pixabay.com/photos/spaghetti-pasta-cooking-kitchen-6639970/",
+        "user": "ayindeabdulmajeed44",
+        "tags": "spaghetti, pasta, cooking, kitchen, meal preparation, cooking, cooking, cooking, cooking, cooking, kitchen"
+      },
+      {
+        "pixabayId": 8009289,
+        "pageURL": "https://pixabay.com/photos/baking-delicious-filling-gourmet-8009289/",
+        "user": "SylwesterL",
+        "tags": "baking, delicious, filling, gourmet, british, beef, appetizer, ingredient, homemade, pastry, pie, pepper, pasty, steak, savory, puff, rustic, ale, cornish, big, crust, crimped, cornwall"
+      },
+      {
+        "pixabayId": 8295778,
+        "pageURL": "https://pixabay.com/photos/sweet-potatoes-potatoes-cook-meal-8295778/",
+        "user": "Mondgesicht",
+        "tags": "sweet potatoes, potatoes, cook, meal, food, grill, pan, food, food, food, food, food"
+      }
+    ],
+    "picked": 1,
+    "image": "cook-verb.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/spaghetti-pasta-cooking-kitchen-6639970/",
+      "user": "ayindeabdulmajeed44"
+    },
+    "bytes": 21240
+  },
+  "dog-noun": {
+    "image_query": "happy dog running in park",
+    "usedQuery": "happy dog running in park",
+    "candidates": [
+      {
+        "pixabayId": 8637542,
+        "pageURL": "https://pixabay.com/photos/dog-park-puppy-animal-running-8637542/",
+        "user": "ValterM",
+        "tags": "dog, park, puppy, animal, running, grass, pet, nature, canine"
+      },
+      {
+        "pixabayId": 2921382,
+        "pageURL": "https://pixabay.com/photos/dogs-huskies-animal-dog-racing-2921382/",
+        "user": "cocoparisienne",
+        "tags": "dogs, huskies, animal, dog racing, winter, winter landscape, snowy, sled dog race, fun, snow, active, landscape, snow landscape, covered in snow, white, run, nature, sleigh ride, running, sun, sunlight, snowflakes, glitter, dog sport, team, dog sled, wilderness, north, team, team, team, team, team, dog sled"
+      },
+      {
+        "pixabayId": 4357790,
+        "pageURL": "https://pixabay.com/photos/shepherd-dog-dog-domestic-animal-4357790/",
+        "user": "AnjaGh",
+        "tags": "shepherd dog, nature, dog, domestic animal, pet, animal, dog puppy, baby dog, young and old, old german shepherd dog, puppy"
+      }
+    ],
+    "picked": 1,
+    "image": "dog-noun.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/dog-park-puppy-animal-running-8637542/",
+      "user": "ValterM"
+    },
+    "bytes": 40020
+  },
+  "eat-verb": {
+    "image_query": "friends eating pizza together at party",
+    "usedQuery": "friends eating pizza together at party",
+    "candidates": [
+      {
+        "pixabayId": 7677696,
+        "pageURL": "https://pixabay.com/photos/xmas-christmas-fondue-eating-7677696/",
+        "user": "Michael_Pointner",
+        "tags": "xmas, christmas, fondue, eating, together, family, party, home, food, pot, soup, bowl, glass, plates, tradition, fondue, fondue, fondue, fondue, fondue, family, party, party, party, party, food, food, pot, soup"
+      },
+      {
+        "pixabayId": 346985,
+        "pageURL": "https://pixabay.com/photos/pizza-vegetables-toppings-346985/",
+        "user": "keram",
+        "tags": "pizza, vegetables, toppings, vegetable pizza, vegetable toppings, pizza toppings, vegetarian pizza, italian, italian cuisine, eat, vegetarian, restaurant, food, healthy, delicious, meal, dinner, pizza, pizza, pizza, pizza, pizza, restaurant, restaurant"
+      },
+      {
+        "pixabayId": 7046276,
+        "pageURL": "https://pixabay.com/photos/wine-pizza-food-wine-glass-drink-7046276/",
+        "user": "NadinShlyueva",
+        "tags": "wine, pizza, food, wine glass, drink, alcohol, rolls, sushi, hand, girl, meal, restaurant, wine, wine, wine, wine, wine, pizza, pizza, pizza, pizza, food, sushi, sushi, sushi, restaurant, restaurant, restaurant, restaurant"
+      }
+    ],
+    "picked": 2,
+    "image": "eat-verb.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/pizza-vegetables-toppings-346985/",
+      "user": "keram"
+    },
+    "bytes": 19130
+  },
+  "happy-adjective": {
+    "image_query": "smiling girl opening birthday present",
+    "usedQuery": "smiling girl opening birthday present",
+    "candidates": [
+      {
+        "pixabayId": 1420830,
+        "pageURL": "https://pixabay.com/photos/gift-present-wood-package-gift-box-1420830/",
+        "user": "image4you",
+        "tags": "gift, present, wood, package, gift box, surprise, ribbon, bow, father's day, packaging, happy birthday, gift packaging, closeup, copy space"
+      },
+      {
+        "pixabayId": 5134828,
+        "pageURL": "https://pixabay.com/photos/play-children-summer-freedom-5134828/",
+        "user": "DAVM2598",
+        "tags": "play, nature, children, happy birthday, summer, freedom, happiness, family, toys, girl"
+      },
+      {
+        "pixabayId": 7675172,
+        "pageURL": "https://pixabay.com/photos/christmas-magic-gift-present-light-7675172/",
+        "user": "JillWellington",
+        "tags": "christmas, magic, gift, present, light, little girl, child, opening presents, opening gift"
+      }
+    ],
+    "picked": 3,
+    "image": "happy-adjective.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/christmas-magic-gift-present-light-7675172/",
+      "user": "JillWellington"
+    },
+    "bytes": 20526
+  },
+  "hot-adjective": {
+    "image_query": "people eating ice cream on hot summer day",
+    "usedQuery": "people eating ice cream on hot summer day",
+    "candidates": [
+      {
+        "pixabayId": 2239377,
+        "pageURL": "https://pixabay.com/photos/strawberry-ice-cream-strawberries-2239377/",
+        "user": "silviarita",
+        "tags": "strawberry ice cream, strawberries, fresh, nature, fruit, ripe, rustic, bio, vitamins, bowls, summer, ice cream, lactose free, fruit ice cream, milk ice cream, food, yummy, frozen, diet, ice cream parlor"
+      },
+      {
+        "pixabayId": 1274894,
+        "pageURL": "https://pixabay.com/photos/ice-cream-dessert-food-snack-1274894/",
+        "user": "stevepb",
+        "tags": "ice cream, dessert, food, snack, ice cream cone, melting, hot, temptation, summer, refreshment, refreshing, indulgence, sundae, tasty, nature, delicious"
+      },
+      {
+        "pixabayId": 2588541,
+        "pageURL": "https://pixabay.com/photos/ice-cream-dessert-sweet-food-2588541/",
+        "user": "StockSnap",
+        "tags": "ice cream, dessert, sweet, food, frozen, woman, face, eating, licking, tongue, delicious, taste, brown food, brown dessert, brown eating, ice cream, ice cream, ice cream, ice cream, ice cream, eating, tongue, tongue, taste, taste, taste"
+      }
+    ],
+    "picked": 1,
+    "image": "hot-adjective.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/strawberry-ice-cream-strawberries-2239377/",
+      "user": "silviarita"
+    },
+    "bytes": 36418
+  },
+  "house-noun": {
+    "image_query": "small house with garden",
+    "usedQuery": "small house with garden",
+    "candidates": [
+      {
+        "pixabayId": 6519384,
+        "pageURL": "https://pixabay.com/photos/sparrow-bird-perched-animal-6519384/",
+        "user": "SamMino",
+        "tags": "sparrow, bird, perched, animal, feathers, plumage, beak, bill, bird watching, ornithology, animal world, nature, house sparrow, sperling, wildlife, branch, sparrow, sparrow, sparrow, sparrow, sparrow, house sparrow, house sparrow"
+      },
+      {
+        "pixabayId": 7092881,
+        "pageURL": "https://pixabay.com/photos/small-house-vegetable-farming-7092881/",
+        "user": "ignartonosbg",
+        "tags": "small house, vegetable farming, tea garden, plastic covered"
+      },
+      {
+        "pixabayId": 10465328,
+        "pageURL": "https://pixabay.com/photos/veranda-lighting-tiny-house-terrace-10465328/",
+        "user": "ZT_OSCAR",
+        "tags": "veranda, lighting, nature, tiny house, terrace, garden furniture, home exterior, outdoor lighting, flowers, wood material, evening lights, outdoor space, trees, countryside house, wooden pergola, summer evening, flower background, exterior space, relaxation, flower wallpaper, decoration, peace, beautiful flowers, evening, cozy"
+      }
+    ],
+    "picked": 3,
+    "image": "house-noun.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/veranda-lighting-tiny-house-terrace-10465328/",
+      "user": "ZT_OSCAR"
+    },
+    "bytes": 43132
+  },
+  "run-verb": {
+    "image_query": "woman jogging in park morning",
+    "usedQuery": "woman jogging in park morning",
+    "candidates": [
+      {
+        "pixabayId": 3811115,
+        "pageURL": "https://pixabay.com/photos/jogger-fall-park-running-woman-3811115/",
+        "user": "anaterate",
+        "tags": "jogger, fall, park, running, woman, move, athletic, in the morning, leaf coloring, autumn leaves, mood, atmospheric, the atmosphere, leisure time, autumn motif, indian summer"
+      },
+      {
+        "pixabayId": 2592247,
+        "pageURL": "https://pixabay.com/photos/woman-jogging-running-exercise-2592247/",
+        "user": "StockSnap",
+        "tags": "woman, jogging, running, exercise, fitness, earphones, music, sound, cellphone, ipod, fit woman, wellness, young woman, motion, active, active lifestyle, jogging, running, running, running, running, exercise, exercise, exercise, exercise, exercise, fitness, fitness, fitness, music, music"
+      },
+      {
+        "pixabayId": 4211946,
+        "pageURL": "https://pixabay.com/photos/jogging-fitness-jogger-movement-4211946/",
+        "user": "wal_172619",
+        "tags": "jogging, fitness, jogger, movement, fit, run, park, sport, jog, people, person, sportsman, jogging, jogging, jogging, fitness, fitness, fitness, fitness, fitness, run, run, park, park, park, sport"
+      }
+    ],
+    "picked": 1,
+    "image": "run-verb.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/jogger-fall-park-running-woman-3811115/",
+      "user": "anaterate"
+    },
+    "bytes": 51182
+  },
+  "sleep-verb": {
+    "image_query": "baby sleeping on bed",
+    "usedQuery": "baby sleeping on bed",
+    "candidates": [
+      {
+        "pixabayId": 7388054,
+        "pageURL": "https://pixabay.com/photos/baby-bed-lying-sheets-pillows-7388054/",
+        "user": "JillWellington",
+        "tags": "baby, bed, lying, sheets, pillows, child in bed, bedtime, toddler, cute, baby, baby, baby, baby, baby, bed, bed"
+      },
+      {
+        "pixabayId": 2032302,
+        "pageURL": "https://pixabay.com/photos/baby-girl-newborn-newborn-baby-2032302/",
+        "user": "Virvoreanu-Laurentiu",
+        "tags": "baby, girl, newborn, newborn baby, baby girl, asleep, sleeping, sleeping baby, baby portrait, infant, cute, little baby, adorable, portrait, bed, crib, baby crib, baby photoshoot, baby, baby, baby, baby, baby, baby girl, baby girl, baby girl"
+      },
+      {
+        "pixabayId": 1151351,
+        "pageURL": "https://pixabay.com/photos/baby-girl-sleep-sleeping-asleep-1151351/",
+        "user": "ddimitrova",
+        "tags": "baby, girl, sleep, sleeping, asleep, sleeping baby, baby girl, child, toddler, portrait, daughter, adorable, kid, baby, baby, sleep, sleep, sleep, sleep, sleep, sleeping, sleeping"
+      }
+    ],
+    "picked": 1,
+    "image": "sleep-verb.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/baby-bed-lying-sheets-pillows-7388054/",
+      "user": "JillWellington"
+    },
+    "bytes": 14904
+  },
+  "swim-verb": {
+    "image_query": "underwater view of swimmer in the sea",
+    "usedQuery": "underwater view of swimmer in the sea",
+    "candidates": [
+      {
+        "pixabayId": 1854203,
+        "pageURL": "https://pixabay.com/photos/floating-fun-man-ocean-person-sea-1854203/",
+        "user": "Pexels",
+        "tags": "floating, fun, man, ocean, person, sea, swimming, underwater, submerged, summer, vacation, swim, swimmer, nature, water, pool, swimming pool"
+      },
+      {
+        "pixabayId": 7320516,
+        "pageURL": "https://pixabay.com/photos/jellyfish-sea-underwater-7320516/",
+        "user": "Leonhard_Niederwimmer",
+        "tags": "jellyfish, sea, underwater, underwater world, sea animals, ocean, nature, animals, wildlife, atlantic ocean, deep sea"
+      },
+      {
+        "pixabayId": 203875,
+        "pageURL": "https://pixabay.com/photos/dolphin-animal-sea-ocean-203875/",
+        "user": "Claudia14",
+        "tags": "dolphin, animal, sea, ocean, underwater, mammal, marine mammal, marine animal, marine life, sea life, ocean life, nature, wildlife"
+      }
+    ],
+    "picked": 1,
+    "image": "swim-verb.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/floating-fun-man-ocean-person-sea-1854203/",
+      "user": "Pexels"
+    },
+    "bytes": 42060
+  },
+  "tomorrow-adverb": {
+    "image_query": "friends meeting at train station",
+    "usedQuery": "friends meeting at train station",
+    "candidates": [
+      {
+        "pixabayId": 5237269,
+        "pageURL": "https://pixabay.com/photos/shinkansen-bullet-train-5237269/",
+        "user": "ArminEP",
+        "tags": "shinkansen, bullet train, railway station, train station, express train, platform, railway, railroad, travel, train, transport, vehicle, high speed, fast, modern, kyoto, japan, shinkansen, bullet train, bullet train, train, train, train, train, train, japan, japan"
+      },
+      {
+        "pixabayId": 1868256,
+        "pageURL": "https://pixabay.com/photos/train-station-adult-wait-waiting-1868256/",
+        "user": "Pexels",
+        "tags": "train station, adult, wait, waiting, benches, trains, commuter, commute, passenger trains, public transportation, transportation, city, man, person, railway, station, train, transportation system, travel, urban, passenger, railway system, black and white, monochrome, train station, train station, train station, wait, wait, waiting, waiting, waiting, waiting, station, train, train, train, train, train"
+      },
+      {
+        "pixabayId": 8302635,
+        "pageURL": "https://pixabay.com/photos/train-windows-platform-speed-8302635/",
+        "user": "Surprising_Media",
+        "tags": "train, windows, platform, speed, circulation, transport, public transport, wagon, wide, wide view, snapshot, station, train station, roof"
+      }
+    ],
+    "picked": 1,
+    "image": "tomorrow-adverb.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/shinkansen-bullet-train-5237269/",
+      "user": "ArminEP"
+    },
+    "bytes": 33326
+  },
+  "want-verb": {
+    "image_query": "child looking at new bicycle",
+    "usedQuery": "child looking at new bicycle",
+    "candidates": [
+      {
+        "pixabayId": 2717347,
+        "pageURL": "https://pixabay.com/photos/infant-feet-father-mother-2717347/",
+        "user": "5921373",
+        "tags": "infant, feet, father, mother, small child, toes, baby feet, newborn, small, child, children's feet, cute, offspring, live new, family, love, sole of the foot, family, family, family, family, family, love"
+      },
+      {
+        "pixabayId": 6398465,
+        "pageURL": "https://pixabay.com/photos/boy-bicycle-blangkon-jawa-child-6398465/",
+        "user": "ahsukurke",
+        "tags": "boy, bicycle, blangkon, jawa, child, kid, traditional wear, bike, leisure, trail, road, bicycle, bicycle, bike, bike, bike, bike, bike"
+      },
+      {
+        "pixabayId": 7662965,
+        "pageURL": "https://pixabay.com/photos/cat-city-roof-look-at-watch-7662965/",
+        "user": "Laney5569",
+        "tags": "cat, city, roof, look at, pet, nature, watch, animal, animals, mallorca"
+      }
+    ],
+    "picked": 2,
+    "image": "want-verb.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/boy-bicycle-blangkon-jawa-child-6398465/",
+      "user": "ahsukurke"
+    },
+    "bytes": 30616
+  },
+  "water-noun": {
+    "image_query": "glass of water",
+    "usedQuery": "glass of water",
+    "candidates": [
+      {
+        "pixabayId": 6544618,
+        "pageURL": "https://pixabay.com/photos/raindrop-glass-rain-window-wet-6544618/",
+        "user": "NickyPe",
+        "tags": "raindrop, glass, rain, window, wet, window glass, water droplets, nature, water, rainy, close up, waterdrop"
+      },
+      {
+        "pixabayId": 3853492,
+        "pageURL": "https://pixabay.com/photos/water-glass-liquid-wet-refreshment-3853492/",
+        "user": "cocoparisienne",
+        "tags": "water, glass, liquid, wet, refreshment, diamond, splash, water glass, drop of water, fresh, light effect, blow, gems, luxury, wealth, ice cubes, diamond shape, drink, nature, drinking glass, sparkling water"
+      },
+      {
+        "pixabayId": 1845534,
+        "pageURL": "https://pixabay.com/photos/glass-window-wet-rain-rainy-1845534/",
+        "user": "Pexels",
+        "tags": "glass window, wet, rain, rainy, raining, rainy weather, glass surface, water droplets, blur, cars, drops, drops of water, glass, raindrops, road, traffic, water, weather, nature, window"
+      }
+    ],
+    "picked": 2,
+    "image": "water-noun.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/water-glass-liquid-wet-refreshment-3853492/",
+      "user": "cocoparisienne"
+    },
+    "bytes": 19982
+  },
+  "with-preposition": {
+    "image_query": "two friends walking together to store",
+    "usedQuery": "two friends walking together to store",
+    "candidates": [
+      {
+        "pixabayId": 166637,
+        "pageURL": "https://pixabay.com/photos/sunset-red-few-love-together-two-166637/",
+        "user": "fill",
+        "tags": "sunset, red, nature, few, love, together, two, friendship"
+      },
+      {
+        "pixabayId": 3471540,
+        "pageURL": "https://pixabay.com/photos/person-people-woman-man-couple-3471540/",
+        "user": "MabelAmber",
+        "tags": "person, people, woman, man, couple, two, together, side by side, walking, activity, motion, back view, from behind, editorial, disney, people, people, couple, couple, couple, couple, couple, walking, walking, walking, walking, disney, disney, disney, disney"
+      },
+      {
+        "pixabayId": 462072,
+        "pageURL": "https://pixabay.com/photos/girls-children-friends-kids-young-462072/",
+        "user": "cherylholt",
+        "tags": "girls, children, friends, kids, young, sisters, little girls, childhood, friendship, happiness, walk, walking, together, outdoors, friendship day, children, children, children, children, children, friends, friendship, friendship"
+      }
+    ],
+    "picked": 1,
+    "image": "with-preposition.webp",
+    "image_credit": {
+      "pageURL": "https://pixabay.com/photos/sunset-red-few-love-together-two-166637/",
+      "user": "fill"
+    },
+    "bytes": 3506
+  }
+}

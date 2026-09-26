@@ -1,0 +1,4 @@
+thinking-dashboard/
+.env
+node_modules/
+dist/
