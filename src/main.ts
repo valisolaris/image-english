@@ -152,6 +152,7 @@ function renderHome(): void {
         ),
       ),
   );
+  prefetchImages(plan.queue.map((item) => item.id));
 
   // 開発時だけ「日付を1日進める」を出す。本番ビルドではこのブロックごと消える(T9)
   if (import.meta.env.DEV) {
@@ -165,6 +166,20 @@ function renderHome(): void {
       );
     });
   }
+}
+
+// 今日のカードの画像を先に読み込む。Service Worker が保存するので、途中で圏外になっても表示できる(SPEC 6章)
+// 初回起動ではまだ Service Worker が働いていないので、働き始めるのを待ってから読み込む
+function prefetchImages(ids: string[]): void {
+  const load = () => {
+    for (const id of new Set(ids)) {
+      const image = cardById.get(id)?.image;
+      if (image) new Image().src = `${BASE}images/${image}`;
+    }
+  };
+  const sw = navigator.serviceWorker;
+  if (!sw || sw.controller) load();
+  else sw.addEventListener('controllerchange', load, { once: true });
 }
 
 // ---- 学習の進行 ----
@@ -336,6 +351,8 @@ async function start(): Promise<void> {
     deck = data.cards;
     cardById = new Map(deck.map((c) => [c.id, c]));
     db = await openDB();
+    // 学習記録をブラウザに消されにくくする(SPEC 6章)。断られても動作は続ける
+    void navigator.storage?.persist?.().catch(() => false);
     progress = await getAllProgress(db);
     dayOffset = import.meta.env.DEV ? await getMeta(db, 'debugDayOffset') : 0;
     renderHome();

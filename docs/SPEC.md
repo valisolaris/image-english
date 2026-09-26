@@ -107,6 +107,7 @@ public/data/deck.json ← ④ アプリが読む最終データ
 1. **取り込み**:CEFR-J から A1/A2 を抽出して `data/words.json` を作る。
 2. **例文作成**:Claude Code が 50語ずつ例文・訳・解説・image_query・imageability を作成し、`data/cards/` にバッチ保存する。
 3. **画像取得**:スクリプトが Pixabay API(キーは `.env` の `PIXABAY_API_KEY`)で image_query を検索し、上位3件を候補として取得、1件目を採用して縮小保存する。見つからなければ単語で再検索し、それでもなければ null にする。安全検索(safesearch)を有効にする。
+   - 保存するファイル名には Pixabay の画像IDを含める(例:`apple-noun-12345.webp`)。iPhone 側は画像を一度表示するとずっと保存しておくため、同じファイル名のまま画像を差し替えると古い画像が表示され続けてしまう。
 4. **画像チェック画面(開発用)**:単語ごとに候補3枚を並べ、タップで差し替えられるローカル専用ページ。公開版には含めない。
 5. **統合**:すべてをまとめて `public/data/deck.json` を作る。
 
