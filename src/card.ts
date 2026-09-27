@@ -58,9 +58,13 @@ export function splitSentence(sentence: string, targetForm: string): SentencePar
   return parts;
 }
 
-/** ヒント2の穴埋め: 対象の語を「最初の1文字 + ____」にする("'m" のように記号で始まる語は最初の英字まで) */
+/**
+ * ヒント2の穴埋め: 対象の語を「最初の1文字 + ____」にする。
+ * "'m" のように記号で始まる語(短縮形)は、記号だけ残して文字は見せない(I'____)。
+ */
 export function blankSentence(sentence: string, targetForm: string): string {
-  const blank = `${/^[^A-Za-z0-9]*./.exec(targetForm)?.[0] ?? ''}____`;
+  const prefix = /^[^A-Za-z0-9]+/.exec(targetForm)?.[0] ?? targetForm[0];
+  const blank = `${prefix}____`;
   return splitSentence(sentence, targetForm)
     .map((p) => (p.target ? blank : p.text))
     .join('');
