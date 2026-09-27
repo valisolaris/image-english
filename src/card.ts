@@ -30,24 +30,37 @@ function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * 対象の語を探す正規表現。前後が英数字に続いていないものだけ一致させる。
+ * \b だと "a.m." (記号で終わる)や "I'm" の "'m" (記号で始まる)を見つけられないため、
+ * 語の端が英数字のときだけ、その側に境界を求める。scripts/build-deck.mjs の検査も同じ規則。
+ * 左側は後読み (?<!...) を使わず、1つ目のグループで「文頭か英数字以外の1文字」を受け取る
+ * (後読みは iOS 16.4 より前の Safari で動かないため)。対象の語そのものは2つ目のグループ。
+ */
+export function targetPattern(targetForm: string): RegExp {
+  const left = /^[A-Za-z0-9]/.test(targetForm) ? '(^|[^A-Za-z0-9])' : '()';
+  const right = /[A-Za-z0-9]$/.test(targetForm) ? '(?![A-Za-z0-9])' : '';
+  return new RegExp(`${left}(${escapeRegExp(targetForm)})${right}`, 'g');
+}
+
 /** 例文を「対象の語」とそれ以外に分ける(単語境界で一致したものだけ対象にする) */
 export function splitSentence(sentence: string, targetForm: string): SentencePart[] {
-  const re = new RegExp(`\\b${escapeRegExp(targetForm)}\\b`, 'g');
+  const re = targetPattern(targetForm);
   const parts: SentencePart[] = [];
   let last = 0;
   for (const m of sentence.matchAll(re)) {
-    const i = m.index ?? 0;
+    const i = (m.index ?? 0) + m[1].length;
     if (i > last) parts.push({ text: sentence.slice(last, i), target: false });
-    parts.push({ text: m[0], target: true });
-    last = i + m[0].length;
+    parts.push({ text: m[2], target: true });
+    last = i + m[2].length;
   }
   if (last < sentence.length) parts.push({ text: sentence.slice(last), target: false });
   return parts;
 }
 
-/** ヒント2の穴埋め: 対象の語を「最初の1文字 + ____」にする */
+/** ヒント2の穴埋め: 対象の語を「最初の1文字 + ____」にする("'m" のように記号で始まる語は最初の英字まで) */
 export function blankSentence(sentence: string, targetForm: string): string {
-  const blank = `${targetForm[0]}____`;
+  const blank = `${/^[^A-Za-z0-9]*./.exec(targetForm)?.[0] ?? ''}____`;
   return splitSentence(sentence, targetForm)
     .map((p) => (p.target ? blank : p.text))
     .join('');

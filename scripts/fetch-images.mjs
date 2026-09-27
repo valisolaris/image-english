@@ -8,51 +8,32 @@
 //   node scripts/fetch-images.mjs                     まだ取得していないカードだけ取得
 //   node scripts/fetch-images.mjs --word apple-noun   1語だけ取り直す(image_query を直したあとなど)
 //   node scripts/fetch-images.mjs --word apple-noun --pick 2   候補の2番目に切り替える
+//   node scripts/fetch-images.mjs --word apple-noun --pixabay-id 12345   候補のうちその画像IDに切り替える
+//                                                                        (画像チェック画面から使う)
 //
 // APIキーは .env の PIXABAY_API_KEY から読む。キーを画面やファイルに出さないこと。
 
-import { readFile, writeFile, readdir, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, readdir, mkdir, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
+import { ROOT, CANDIDATES, loadKey, createPixabay } from './lib/pixabay.mjs';
 
-const ROOT = path.resolve(import.meta.dirname, '..');
 const CARDS_DIR = path.join(ROOT, 'data', 'cards');
 const RESULT_FILE = path.join(ROOT, 'data', 'images.json');
 const IMAGE_DIR = path.join(ROOT, 'public', 'images');
 
 const WIDTH = 480;
 const TARGET_BYTES = 50 * 1024;
-const CANDIDATES = 3;
-// Pixabay の上限は 60秒で100リクエスト。余裕をもって間を空ける。
-const WAIT_MS = 800;
 
-function loadKey() {
-  try {
-    process.loadEnvFile(path.join(ROOT, '.env'));
-  } catch {
-    // .env が無い場合は下でまとめてエラーにする
-  }
-  const key = process.env.PIXABAY_API_KEY;
-  if (!key) {
-    console.error('PIXABAY_API_KEY が見つかりません。プロジェクト直下の .env に PIXABAY_API_KEY=... と書いてください。');
-    process.exit(1);
-  }
-  return key;
-}
-
-const KEY = loadKey();
-
-/** 念のため、表示する文字列からキーを消す */
-function redact(s) {
-  return String(s).split(KEY).join('***');
-}
+const { redact, searchForCard } = createPixabay(loadKey());
 
 function parseArgs(argv) {
-  const args = { word: null, pick: 1 };
+  const args = { word: null, pick: 1, pixabayId: null };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--word') args.word = argv[++i];
     else if (argv[i] === '--pick') args.pick = Number(argv[++i]);
+    else if (argv[i] === '--pixabay-id') args.pixabayId = Number(argv[++i]);
     else {
       console.error(`知らない引数です: ${argv[i]}`);
       process.exit(1);
@@ -62,8 +43,12 @@ function parseArgs(argv) {
     console.error(`--pick は 1〜${CANDIDATES} で指定してください。`);
     process.exit(1);
   }
-  if (args.pick !== 1 && !args.word) {
-    console.error('--pick は --word と一緒に使ってください。');
+  if ((args.pick !== 1 || args.pixabayId != null) && !args.word) {
+    console.error('--pick / --pixabay-id は --word と一緒に使ってください。');
+    process.exit(1);
+  }
+  if (args.pixabayId != null && !Number.isInteger(args.pixabayId)) {
+    console.error('--pixabay-id は数字で指定してください。');
     process.exit(1);
   }
   return args;
@@ -88,23 +73,14 @@ async function saveResults(results) {
   await writeFile(RESULT_FILE, JSON.stringify(sorted, null, 2) + '\n');
 }
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-async function search(query) {
-  const params = new URLSearchParams({
-    key: KEY,
-    q: query.slice(0, 100),
-    image_type: 'photo',
-    safesearch: 'true',
-    per_page: String(CANDIDATES),
-  });
-  const res = await fetch(`https://pixabay.com/api/?${params}`);
-  await sleep(WAIT_MS);
-  if (!res.ok) {
-    throw new Error(`Pixabay 検索に失敗しました(HTTP ${res.status}): ${redact(await res.text())}`);
-  }
-  const data = await res.json();
-  return data.hits.slice(0, CANDIDATES);
+/**
+ * 画像のファイル名。Pixabay の画像IDを含める(SPEC 7章③)。
+ * iPhone は同じ名前の画像をずっと保存するので、差し替えたら名前も変わるようにするため。
+ * "ice cream-noun" や "Mr.-noun" のような id もあるので、英数字とハイフン以外は "-" にする。
+ */
+function imageFileName(cardId, pixabayId) {
+  const slug = cardId.replace(/[^A-Za-z0-9-]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  return `${slug}-${pixabayId}.webp`;
 }
 
 /** 画像を幅480px の WebP にし、50KB 以下になるまで画質を下げる */
@@ -117,30 +93,33 @@ async function toWebp(buf) {
   return out;
 }
 
-async function fetchCard(card, pick) {
-  let usedQuery = card.image_query;
-  let hits = await search(usedQuery);
-  if (hits.length === 0) {
-    usedQuery = card.word;
-    hits = await search(usedQuery);
-  }
+async function fetchCard(card, { pick, pixabayId }, hasImage) {
+  const { usedQuery, hits } = await searchForCard(card);
 
   const candidates = hits.map((h) => ({ pixabayId: h.id, pageURL: h.pageURL, user: h.user, tags: h.tags }));
   const base = { image_query: card.image_query, usedQuery, candidates };
 
   if (hits.length === 0) {
+    // 取り直しで0件になっても、今ある画像は消さない(記録を書き換えずに止める)
+    if (hasImage) throw new Error('候補が0件でした。今の画像はそのまま残します');
     return { ...base, picked: null, image: null, image_credit: null };
   }
+  // 画像IDで選ぶ場合は、検索結果の並びが変わっていても同じ画像を選べる(画像チェック画面から使う)
+  if (pixabayId != null) pick = hits.findIndex((h) => h.id === pixabayId) + 1;
   const hit = hits[pick - 1];
   if (!hit) {
     // 今の画像を消さないように、記録を書き換えずに止める
-    throw new Error(`候補は ${hits.length} 件しかありません(--pick ${pick})`);
+    throw new Error(
+      pixabayId != null
+        ? `画像ID ${pixabayId} は今の候補にありません`
+        : `候補は ${hits.length} 件しかありません(--pick ${pick})`,
+    );
   }
 
   const res = await fetch(hit.webformatURL);
   if (!res.ok) throw new Error(`画像のダウンロードに失敗しました(HTTP ${res.status})`);
   const webp = await toWebp(Buffer.from(await res.arrayBuffer()));
-  const file = `${card.id}.webp`;
+  const file = imageFileName(card.id, hit.id);
   await writeFile(path.join(IMAGE_DIR, file), webp);
 
   return {
@@ -175,10 +154,18 @@ async function main() {
   let none = 0;
   for (const card of targets) {
     try {
-      const r = await fetchCard(card, args.pick);
+      const oldFile = results[card.id]?.image;
+      const r = await fetchCard(card, args, Boolean(oldFile));
       results[card.id] = r;
       // 1語ごとに保存する
       await saveResults(results);
+      // 取り直しで名前が変わったら、古い画像ファイルを消す(公開物に残さない)。
+      // 記録を保存してから消すので、消せなくても新しい画像が参照されないまま残ることはない
+      if (oldFile && oldFile !== r.image) {
+        await rm(path.join(IMAGE_DIR, oldFile), { force: true }).catch((e) =>
+          console.error(`WARN ${card.id}  古い画像 ${oldFile} を消せませんでした。手で消してください: ${e.message}`),
+        );
+      }
       if (r.image) {
         ok++;
         const fallback = r.usedQuery === card.image_query ? '' : ' (単語で再検索)';

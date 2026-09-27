@@ -7,9 +7,12 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check-images": "node scripts/image-check/server.mjs",
+    "build-deck": "node scripts/build-deck.mjs"
   },
   "devDependencies": {
+    "exceljs": "^4.4.0",
     "fake-indexeddb": "^6.2.5",
     "sharp": "^0.35.4",
     "typescript": "^7.0.2",

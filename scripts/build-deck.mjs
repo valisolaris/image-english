@@ -13,6 +13,7 @@ const CARDS_DIR = path.join(ROOT, 'data', 'cards');
 const IMAGES_FILE = path.join(ROOT, 'data', 'images.json');
 const IMAGE_DIR = path.join(ROOT, 'public', 'images');
 const OUT_FILE = path.join(ROOT, 'public', 'data', 'deck.json');
+const WORDS_FILE = path.join(ROOT, 'data', 'words.json');
 
 const REQUIRED = ['id', 'word', 'pos', 'level', 'meaning_ja', 'sentence_en', 'sentence_ja', 'target_form', 'image_query', 'imageability'];
 const IMAGEABILITY = ['high', 'medium', 'low'];
@@ -20,6 +21,13 @@ const LEVELS = ['A1', 'A2'];
 
 function escapeRegExp(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** src/card.ts の targetPattern と同じ規則(語の端が英数字のときだけ、その側に境界を求める) */
+function targetPattern(targetForm) {
+  const left = /^[A-Za-z0-9]/.test(targetForm) ? '(^|[^A-Za-z0-9])' : '()';
+  const right = /[A-Za-z0-9]$/.test(targetForm) ? '(?![A-Za-z0-9])' : '';
+  return new RegExp(`${left}(${escapeRegExp(targetForm)})${right}`);
 }
 
 /** 見つかった問題を文字列の配列で返す(空なら合格) */
@@ -33,7 +41,7 @@ function check(card, images) {
   if (card.id !== `${card.word}-${card.pos}`) errors.push(`id は ${card.word}-${card.pos} にしてください`);
   if (!LEVELS.includes(card.level)) errors.push(`level が不正です: ${card.level}`);
   if (!IMAGEABILITY.includes(card.imageability)) errors.push(`imageability が不正です: ${card.imageability}`);
-  if (!new RegExp(`\\b${escapeRegExp(card.target_form)}\\b`).test(card.sentence_en)) {
+  if (!targetPattern(card.target_form).test(card.sentence_en)) {
     errors.push(`target_form "${card.target_form}" が sentence_en に単語として出てきません`);
   }
 
@@ -90,6 +98,19 @@ async function main() {
     console.error(`検査に失敗: ${failed} 枚。deck.json は書き出していません。`);
     process.exit(1);
   }
+
+  // 新しい単語はこの順番で出題される(SPEC 2章): A1 → A2、各レベルの中は imageability high → medium → low、
+  // 同じ組の中は CEFR-J の並び(data/words.json の順)
+  const wordOrder = existsSync(WORDS_FILE)
+    ? new Map(JSON.parse(await readFile(WORDS_FILE, 'utf8')).map((w, i) => [w.id, i]))
+    : new Map();
+  const orderOf = (c) => wordOrder.get(c.id) ?? Number.MAX_SAFE_INTEGER;
+  cards.sort(
+    (a, b) =>
+      LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level) ||
+      IMAGEABILITY.indexOf(a.imageability) - IMAGEABILITY.indexOf(b.imageability) ||
+      orderOf(a) - orderOf(b),
+  );
 
   await mkdir(path.dirname(OUT_FILE), { recursive: true });
   await writeFile(OUT_FILE, JSON.stringify({ version: 1, cards }, null, 2) + '\n');

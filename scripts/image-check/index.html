@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>画像チェック(開発用)</title>
+<style>
+  :root { --bg: #f6f6f4; --card: #fff; --text: #222; --muted: #666; --ok: #2e8b57; --ng: #c0392b; --line: #ddd; --accent: #2563eb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1b1b1d; --card: #26262a; --text: #eee; --muted: #aaa; --line: #3a3a40; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+  header { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  header h1 { font-size: 16px; margin: 0 8px 0 0; }
+  .counts span { margin-right: 10px; font-size: 14px; }
+  select, input, button { font: inherit; }
+  button { border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button.ok { color: var(--ok); } button.ng { color: var(--ng); }
+  button:disabled { opacity: .5; cursor: default; }
+  main { padding: 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .tile { background: var(--card); border: 3px solid transparent; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+  .tile.ok { border-color: var(--ok); } .tile.ng { border-color: var(--ng); }
+  .tile img, .tile .noimg { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #0002; cursor: pointer; display: block; }
+  .tile .body { padding: 8px 10px; flex: 1; }
+  .word { font-weight: 700; font-size: 18px; }
+  .meta { color: var(--muted); font-size: 12px; }
+  .en { margin: 6px 0 2px; font-size: 14px; }
+  .ja { color: var(--muted); font-size: 12px; }
+  .actions { display: flex; gap: 6px; padding: 0 10px 10px; }
+  .actions button { flex: 1; }
+  footer { display: flex; justify-content: center; gap: 10px; align-items: center; padding: 10px 16px 30px; }
+  dialog { border: none; border-radius: 12px; padding: 16px; width: min(1100px, 96vw); background: var(--card); color: var(--text); }
+  dialog::backdrop { background: #0008; }
+  .cands { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 12px 0; }
+  .cand { border: 3px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: var(--bg); }
+  .cand:hover { border-color: var(--accent); }
+  .cand.current { border-color: var(--ok); }
+  .cand img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+  .cand .meta { padding: 6px 8px; }
+  .msg { min-height: 1.4em; color: var(--muted); }
+  .msg.error { color: var(--ng); }
+</style>
+</head>
+<body>
+<header>
+  <h1>画像チェック(開発用)</h1>
+  <div class="counts" id="counts"></div>
+  <label>表示: <select id="filter">
+    <option value="todo">未確認</option>
+    <option value="ng">要対応</option>
+    <option value="ok">OK</option>
+    <option value="all">すべて</option>
+  </select></label>
+  <input id="search" type="search" placeholder="単語で探す" size="12">
+  <button id="allOk" class="ok">このページの未確認を全部OK</button>
+</header>
+<main id="grid"></main>
+<footer>
+  <button id="prev">← 前</button>
+  <span id="pageInfo"></span>
+  <button id="next">次 →</button>
+</footer>
+
+<dialog id="dialog">
+  <div><span class="word" id="dWord"></span> <span class="meta" id="dMeta"></span></div>
+  <div class="en" id="dEn"></div>
+  <div class="ja" id="dJa"></div>
+  <form id="dSearch" style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap">
+    <label class="meta" for="dQuery" style="align-self:center">検索キーワード(英語):</label>
+    <input id="dQuery" style="flex:1; min-width:240px">
+    <button type="submit">このキーワードで検索</button>
+  </form>
+  <div class="cands" id="dCands"></div>
+  <div class="msg" id="dMsg"></div>
+  <div style="display:flex; gap:8px; justify-content:flex-end">
+    <button class="ng" id="dNg">どれもダメ(要対応にする)</button>
+    <button id="dClose">閉じる</button>
+  </div>
+</dialog>
+
+<script>
+const PER_PAGE = 30;
+let cards = [];
+let view = [];   // 今のページに出しているカード(OK にしてもすぐには消さない)
+let page = 0;
+let current = null;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+async function api(path, body) {
+  const res = await fetch(path, body === undefined ? {} : {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+function filtered() {
+  const f = $('filter').value;
+  const q = $('search').value.trim().toLowerCase();
+  return cards.filter((c) =>
+    (f === 'all' || (f === 'todo' ? !c.status : c.status === f)) &&
+    (!q || c.word.toLowerCase().includes(q)));
+}
+
+function refreshView() {
+  const list = filtered();
+  const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+  page = Math.min(page, pages - 1);
+  view = list.slice(page * PER_PAGE, (page + 1) * PER_PAGE);
+  $('pageInfo').textContent = `${page + 1} / ${pages} ページ(${list.length} 枚)`;
+  $('prev').disabled = page === 0;
+  $('next').disabled = page >= pages - 1;
+  render();
+  window.scrollTo(0, 0);
+}
+
+function render() {
+  const ok = cards.filter((c) => c.status === 'ok').length;
+  const ng = cards.filter((c) => c.status === 'ng').length;
+  $('counts').innerHTML = `<span>全 ${cards.length}</span><span style="color:var(--ok)">OK ${ok}</span><span style="color:var(--ng)">要対応 ${ng}</span><span>未確認 ${cards.length - ok - ng}</span>`;
+  $('grid').innerHTML = view.map((c) => `
+    <div class="tile ${c.status ?? ''}" data-id="${esc(c.id)}">
+      ${c.image ? `<img src="/images/${encodeURIComponent(c.image)}" alt="" loading="lazy" data-act="cands">` : `<div class="noimg" data-act="cands"></div>`}
+      <div class="body">
+        <div class="word">${esc(c.word)}</div>
+        <div class="meta">${esc(c.pos)} ・ ${esc(c.level)} ・ ${esc(c.imageability)}</div>
+        <div class="en">${esc(c.sentence_en)}</div>
+        <div class="ja">${esc(c.sentence_ja)}</div>
+      </div>
+      <div class="actions">
+        <button class="ok" data-act="ok">OK</button>
+        <button data-act="cands">候補</button>
+        <button class="ng" data-act="ng">ダメ</button>
+      </div>
+    </div>`).join('');
+}
+
+async function setStatus(updates) {
+  await api('/api/status', updates);
+  for (const [id, s] of Object.entries(updates)) cards.find((c) => c.id === id).status = s;
+  render();
+}
+
+$('grid').addEventListener('click', async (e) => {
+  const act = e.target.dataset.act;
+  const id = e.target.closest('.tile')?.dataset.id;
+  if (!act || !id) return;
+  const card = cards.find((c) => c.id === id);
+  try {
+    if (act === 'ok') await setStatus({ [id]: card.status === 'ok' ? null : 'ok' });
+    if (act === 'ng') await setStatus({ [id]: card.status === 'ng' ? null : 'ng' });
+    if (act === 'cands') openDialog(card);
+  } catch (err) { alertError(err); }
+});
+
+$('allOk').addEventListener('click', async () => {
+  const updates = Object.fromEntries(view.filter((c) => !c.status).map((c) => [c.id, 'ok']));
+  if (Object.keys(updates).length) await setStatus(updates).catch(alertError);
+});
+
+function alertError(err) { console.error(err); $('counts').insertAdjacentHTML('beforeend', `<span style="color:var(--ng)">エラー: ${esc(err.message)}</span>`); }
+
+let searchedQuery = null; // null = カードの image_query のまま。文字列 = 入力欄のキーワードで検索中
+
+function openDialog(card) {
+  current = card;
+  $('dWord').textContent = card.word;
+  $('dMeta').textContent = `${card.pos} ・ ${card.imageability}`;
+  $('dEn').textContent = card.sentence_en;
+  $('dJa').textContent = card.sentence_ja;
+  $('dQuery').value = card.image_query;
+  $('dialog').showModal();
+  loadCandidates(card, null);
+}
+
+async function loadCandidates(card, query) {
+  searchedQuery = query;
+  $('dCands').innerHTML = '';
+  setMsg('候補を検索しています…');
+  try {
+    const q = query ? `&q=${encodeURIComponent(query)}` : '';
+    const { candidates } = await api(`/api/candidates?id=${encodeURIComponent(card.id)}${q}`);
+    if (current !== card || searchedQuery !== query) return;
+    if (!candidates.length) return setMsg('候補が見つかりませんでした。', true);
+    $('dCands').innerHTML = candidates.map((h, i) => `
+      <div class="cand ${card.image?.endsWith(`-${h.pixabayId}.webp`) ? 'current' : ''}" data-pid="${h.pixabayId}">
+        <img src="${esc(h.previewURL)}" alt="">
+        <div class="meta">候補${i + 1} ・ by ${esc(h.user)}${card.image?.endsWith(`-${h.pixabayId}.webp`) ? ' ・ 今の画像' : ''}<br>${esc(h.tags)}</div>
+      </div>`).join('');
+    setMsg(query
+      ? '使いたい画像をクリックすると差し替え、このキーワードをカードに保存します。'
+      : '使いたい画像をクリックすると差し替えます(緑の枠が今の画像)。合うものがなければキーワードを変えて検索できます。');
+  } catch (err) { setMsg(`エラー: ${err.message}`, true); }
+}
+
+$('dSearch').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const q = $('dQuery').value.trim();
+  if (!current || !q) return;
+  loadCandidates(current, q === current.image_query ? null : q);
+});
+
+function setMsg(text, error = false) { $('dMsg').textContent = text; $('dMsg').className = error ? 'msg error' : 'msg'; }
+
+$('dCands').addEventListener('click', async (e) => {
+  const el = e.target.closest('.cand');
+  if (!el || !current) return;
+  const card = current;
+  const pixabayId = Number(el.dataset.pid);
+  setMsg('差し替えています…');
+  try {
+    const body = { id: card.id, pixabayId };
+    if (searchedQuery) body.query = searchedQuery;
+    const { image } = await api('/api/pick', body);
+    card.image = image;
+    if (searchedQuery) card.image_query = searchedQuery;
+    card.status = 'ok';
+    render();
+    $('dialog').close();
+  } catch (err) { setMsg(`エラー: ${err.message}`, true); }
+});
+
+$('dNg').addEventListener('click', async () => {
+  if (current) await setStatus({ [current.id]: 'ng' }).catch(alertError);
+  $('dialog').close();
+});
+$('dClose').addEventListener('click', () => $('dialog').close());
+$('dialog').addEventListener('close', () => { current = null; });
+
+$('filter').addEventListener('change', () => { page = 0; refreshView(); });
+$('search').addEventListener('input', () => { page = 0; refreshView(); });
+$('prev').addEventListener('click', () => { page--; refreshView(); });
+$('next').addEventListener('click', () => { page++; refreshView(); });
+
+api('/api/cards').then((data) => { cards = data; refreshView(); }).catch(alertError);
+</script>
+</body>
+</html>

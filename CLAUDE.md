@@ -17,11 +17,3 @@
 - **例文は開発時にClaude Code自身が作成する**:Claude APIを呼ぶスクリプトは作らない。例文データはこの会話(Claude Code)の中でバッチごとに生成し、JSONファイルとして保存する。
 - 生成したデータ(例文・画像)は途中で止まっても再開できるよう、バッチ単位で保存し、処理済みのものはスキップする。
 
-## 技術構成(概要)
-
-- Vite + TypeScript(UIフレームワークなし)、PWA(`vite-plugin-pwa`)
-- 学習記録:IndexedDB(iPhone本体に保存)
-- 音声:ブラウザ標準の Web Speech API(`speechSynthesis`)
-- データ作成スクリプト:Node.js(`scripts/` 配下)
-- 公開:GitHub Pages
-

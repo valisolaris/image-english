@@ -2,3 +2,4 @@ thinking-dashboard/
 .env*
 node_modules/
 dist/
+data/source/
