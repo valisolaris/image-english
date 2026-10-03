@@ -174,7 +174,7 @@
     "sentence_ja": "今日はとても暑いから、アイスクリームを食べようよ。",
     "note_ja": "気温にも物の温度にも使う。反対は cold。",
     "target_form": "hot",
-    "image_query": "people eating ice cream on hot summer day",
+    "image_query": "hot summer day",
     "imageability": "high",
     "image": null,
     "image_credit": null
@@ -204,7 +204,7 @@
     "sentence_ja": "小さな猫の隣にいる、あの大きな犬を見て!",
     "note_ja": "反対は small。large は少しかたい言い方。",
     "target_form": "big",
-    "image_query": "large dog and small cat",
+    "image_query": "large dog",
     "imageability": "high",
     "image": null,
     "image_credit": null
